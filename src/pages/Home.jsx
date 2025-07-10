@@ -2,8 +2,15 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
     const [fruits, setFruits] = useState([]);
+
+    // search and filter States
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
+
+    // order States
+    const [sortField, setSortField] = useState("title");
+    const [sortOrder, setSortOrder] = useState("asc");
+
 
     useEffect(() => {
         const queryParams = [];
@@ -14,9 +21,23 @@ export default function Home() {
 
         fetch(`http://localhost:3001/fruits${queryString}`)
             .then((res) => res.json())
-            .then((data) => setFruits(data))
+            .then((data) => setFruits(getSortedFruits(data)))
             .catch((err) => console.error("Errore nel fetch:", err));
-    }, [search, category]);
+    }, [search, category, sortField, sortOrder]);
+
+    // function to manage the order
+    function getSortedFruits(data) {
+        const sorted = [...data].sort((a, b) => {
+            const valueA = a[sortField].toLowerCase();
+            const valueB = b[sortField].toLowerCase();
+            return sortOrder === "asc"
+                ? valueA.localeCompare(valueB)
+                : valueB.localeCompare(valueA);
+        });
+
+        return sorted;
+    }
+
 
     return (
         <div>
@@ -29,6 +50,7 @@ export default function Home() {
                 onChange={(e) => setSearch(e.target.value)}
             />
 
+            {/* category select */}
             <select value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option value="">Tutte le categorie</option>
                 <option value="Tropicale">Tropicale</option>
@@ -37,6 +59,17 @@ export default function Home() {
                 <option value="Bacca">Bacca</option>
                 <option value="Frutto di bosco">Frutto di bosco</option>
             </select>
+            {/* field select */}
+            <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
+                <option value="title">Ordina per Titolo</option>
+                <option value="category">Ordina per Categoria</option>
+            </select>
+            {/* oreder select */}
+            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+            </select>
+
 
             <ul>
                 {fruits.map((fruit) => (
