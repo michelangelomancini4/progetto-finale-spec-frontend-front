@@ -1,40 +1,71 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* general rules */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+h1 {
+  font-size: 3em;
+  text-align: center;
+  margin-top: 1rem;
+  color: #1c1e42;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  color: #1c1e42;
+  text-decoration: none;
 }
+
 a:hover {
-  color: #535bf2;
+  color: #181c6f;
 }
 
-body {
-  margin: 0;
+/* Fruit List section */
+.fruitlist-container {
+  background-color: rgb(25, 174, 60);
+  padding: 2rem;
+}
+
+.fruitlist {
+  list-style: none;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.fruitlist li {
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.fruit-titlecategory {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: #1c1e42;
+}
+
+/* Fruit images */
+img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -42,27 +73,48 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #c84848;
+  color: white;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.3s ease;
 }
+
 button:hover {
+  background-color: #a03b3b;
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Comparison panel  */
+.comparison-panel {
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
+    color: #1c1e42;
+  }
+
+  button:hover {
+    background-color: #e0e0e0;
   }
 }

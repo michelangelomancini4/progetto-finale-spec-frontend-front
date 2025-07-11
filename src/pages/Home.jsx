@@ -96,16 +96,28 @@ export default function Home() {
                 </select>
 
                 {/* fruits list */}
-                <ul>
-                    {fruits.map((fruit) => (
-                        <li key={fruit.id}>
-                            <strong><Link to={`/fruits/${fruit.id}`}>{fruit.title}</Link></strong> - {fruit.category}
-                            <button onClick={() => handleFruitComparison(fruit)}>
-                                {selectedFruits.some(f => f.id === fruit.id) ? "Rimuovi" : "Confronta"}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <div className="fruitlist-container">
+                    <ul className="fruitlist">
+                        {fruits.map((fruit) => (
+                            <li key={fruit.id}>
+                                <div>
+                                    <strong className="fruit-titlecategory"><Link to={`/fruits/${fruit.id}`}>{fruit.title}</Link></strong> - {fruit.category}
+
+                                </div>
+                                <img
+                                    src={`/fruitsimages/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
+                                    alt={fruit.title}
+                                />
+
+
+                                <button onClick={() => handleFruitComparison(fruit)}>
+                                    {selectedFruits.some(f => f.id === fruit.id) ? "Rimuovi" : "Confronta"}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
 
             </div>
 
@@ -114,7 +126,7 @@ export default function Home() {
                 <div>
                     <h2>Confronto Frutti</h2>
 
-                    <div>
+                    <div className="comparison-panel">
                         {selectedFruits.map(fruit => (
                             <div key={fruit.id}>
                                 <h3>{fruit.title}</h3>
@@ -122,7 +134,7 @@ export default function Home() {
                                 <p><strong>Origine:</strong> {fruit.originCountry}</p>
                                 <p><strong>Dolcezza:</strong> {fruit.sweetness}</p>
                                 <p><strong>Stagione:</strong> {fruit.season}</p>
-                                <p><strong>Calorie:</strong> {fruit.caloriesPer100g}</p>
+                                <p><strong>Calorie/per 100g:</strong> {fruit.caloriesPer100g}</p>
                                 <p><strong>Vitamine:</strong> {fruit.vitamins}</p>
                             </div>
                         ))}
