@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"
+
 
 export default function Home() {
     const [fruits, setFruits] = useState([]);
@@ -74,10 +76,11 @@ export default function Home() {
             <ul>
                 {fruits.map((fruit) => (
                     <li key={fruit.id}>
-                        <strong>{fruit.title}</strong> - {fruit.category}
+                        <strong><Link to={`/fruits/${fruit.id}`}>{fruit.title}</Link></strong> - {fruit.category}
                     </li>
                 ))}
             </ul>
+
         </div>
     );
 }
