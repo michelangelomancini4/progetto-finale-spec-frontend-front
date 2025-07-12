@@ -135,10 +135,21 @@ export default function Home({ favorites, handleFavorite }) {
                                     <strong className="fruit-titlecategory"><Link to={`/fruits/${fruit.id}`}>{fruit.title}</Link></strong>
                                     <p>{fruit.category}</p>
                                 </div>
-                                <img
-                                    src={`/fruitsimages/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
-                                    alt={fruit.title}
-                                />
+                                <Link to={`/fruits/${fruit.id}`}>
+                                    <div className="fruit-img-wrapper">
+                                        <img
+                                            src={`/fruitsimages/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
+                                            alt={fruit.title}
+                                            className="img-default"
+                                        />
+                                        <img
+                                            src={`/fruitsimageshover/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
+                                            alt={`${fruit.title} hover`}
+                                            className="img-hover"
+                                        />
+                                    </div>
+                                </Link>
+
 
                                 <div className="fruitbuttons">
                                     <button onClick={() => handleFruitComparison(fruit)}>

@@ -23,17 +23,24 @@ export default function FruitDetailsPage({ favorites, handleFavorite }) {
     return (
         <>
             <div>
-                <h2>{fruit.title}</h2>
-                <p><strong>Categoria:</strong> {fruit.category}</p>
-                <p><strong>Origine:</strong> {fruit.originCountry}</p>
-                <p><strong>Dolcezza:</strong> {fruit.sweetness}</p>
-                <p><strong>Stagione:</strong> {fruit.season}</p>
-                <p><strong>Calorie per 100g:</strong> {fruit.caloriesPer100g}</p>
-                <p><strong>Vitamine:</strong> {fruit.vitamins}</p>
+                <div>
+                    <h2>{fruit.title}</h2>
+                    <p><strong>Categoria:</strong> {fruit.category}</p>
+                    <p><strong>Origine:</strong> {fruit.originCountry}</p>
+                    <p><strong>Dolcezza:</strong> {fruit.sweetness}</p>
+                    <p><strong>Stagione:</strong> {fruit.season}</p>
+                    <p><strong>Calorie per 100g:</strong> {fruit.caloriesPer100g}</p>
+                    <p><strong>Vitamine:</strong> {fruit.vitamins}</p>
+                </div>
+                <button onClick={() => handleFavorite(fruit)}>
+                    {favorites?.some(f => f.id === fruit.id) ? '✖️' : '⭐'}
+                </button>
             </div>
-            <button onClick={() => handleFavorite(fruit)}>
-                {favorites?.some(f => f.id === fruit.id) ? '⭐' : '✖️'}
-            </button>
+
+            <img
+                src={`/fruitsimages/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
+                alt={fruit.title}
+            />
         </>
     );
 }

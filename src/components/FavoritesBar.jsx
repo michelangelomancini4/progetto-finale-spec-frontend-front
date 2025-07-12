@@ -1,7 +1,7 @@
 
 function FavoritesBar({ favorites, handleFavorite }) {
     return (
-        <div>
+        <div className="favorites-bar">
             <h3>Preferiti</h3>
             {favorites.length === 0 ? (
                 <p>Nessun preferito</p>
