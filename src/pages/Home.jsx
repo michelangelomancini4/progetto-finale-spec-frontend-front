@@ -91,37 +91,40 @@ export default function Home({ favorites, handleFavorite }) {
 
     return (
         <>
+            <h1>Frutta:</h1>
             <div>
-                <h1>Frutta:</h1>
 
-                <input
-                    type="text"
-                    placeholder="Cerca frutto..."
-                    value={debSearch}
-                    onChange={(e) => setDebSearch(e.target.value)}
-                />
+                <div className="filterbar">
+                    <input
+                        type="text"
+                        placeholder="Cerca frutto..."
+                        value={debSearch}
+                        onChange={(e) => setDebSearch(e.target.value)}
+                    />
 
-                {/* category select */}
-                <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="">Tutte le categorie</option>
-                    <option value="Tropicale">Tropicale</option>
-                    <option value="Agrume">Agrume</option>
-                    <option value="Pomacea">Pomacea</option>
-                    <option value="Bacca">Bacca</option>
-                    <option value="Frutto di bosco">Frutto di bosco</option>
-                </select>
+                    {/* category select */}
+                    <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <option value="">Tutte le categorie</option>
+                        <option value="Tropicale">Tropicale</option>
+                        <option value="Agrume">Agrume</option>
+                        <option value="Pomacea">Pomacea</option>
+                        <option value="Bacca">Bacca</option>
+                        <option value="Frutto di bosco">Frutto di bosco</option>
+                    </select>
 
-                {/* field select */}
-                <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
-                    <option value="title">Ordina per Titolo</option>
-                    <option value="category">Ordina per Categoria</option>
-                </select>
+                    {/* field select */}
+                    <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
+                        <option value="title">Ordina per Titolo</option>
+                        <option value="category">Ordina per Categoria</option>
+                    </select>
 
-                {/* oreder select */}
-                <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-                    <option value="asc">A-Z</option>
-                    <option value="desc">Z-A</option>
-                </select>
+                    {/* oreder select */}
+                    <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                        <option value="asc">A-Z</option>
+                        <option value="desc">Z-A</option>
+                    </select>
+                </div>
+
 
                 {/* fruits list */}
                 <div className="fruitlist-container">
@@ -129,22 +132,24 @@ export default function Home({ favorites, handleFavorite }) {
                         {fruits.map((fruit) => (
                             <li key={fruit.id}>
                                 <div>
-                                    <strong className="fruit-titlecategory"><Link to={`/fruits/${fruit.id}`}>{fruit.title}</Link></strong> - {fruit.category}
-
+                                    <strong className="fruit-titlecategory"><Link to={`/fruits/${fruit.id}`}>{fruit.title}</Link></strong>
+                                    <p>{fruit.category}</p>
                                 </div>
                                 <img
                                     src={`/fruitsimages/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
                                     alt={fruit.title}
                                 />
 
+                                <div className="fruitbuttons">
+                                    <button onClick={() => handleFruitComparison(fruit)}>
+                                        {selectedFruits.some(f => f.id === fruit.id) ? "Rimuovi" : "Confronta"}
+                                    </button>
 
-                                <button onClick={() => handleFruitComparison(fruit)}>
-                                    {selectedFruits.some(f => f.id === fruit.id) ? "Rimuovi" : "Confronta"}
-                                </button>
+                                    <button onClick={() => handleFavorite(fruit)}>
+                                        {favorites?.some(f => f.id === fruit.id) ? '✖️' : '⭐'}
+                                    </button>
+                                </div>
 
-                                <button onClick={() => handleFavorite(fruit)}>
-                                    {favorites?.some(f => f.id === fruit.id) ? '✖️' : '⭐'}
-                                </button>
 
                             </li>
                         ))}
@@ -173,7 +178,7 @@ export default function Home({ favorites, handleFavorite }) {
                         ))}
                     </div>
                 </div>
-            ) : null}
+            ) : <p> Seleziona due frutti per il confronto</p>}
 
         </>
     );

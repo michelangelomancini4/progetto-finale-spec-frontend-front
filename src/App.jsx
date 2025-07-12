@@ -1,12 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import FruitDetailsPage from "./pages/FruitDetailsPage";
 import FavoritesBar from "./components/FavoritesBar"
 
 
 function App() {
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem("favorites");
+    return saved ? JSON.parse(saved) : [];
+  });
+
 
   // function to handle favorites
   const handleFavorite = (favFruit) => {
@@ -21,6 +25,9 @@ function App() {
       }
     })
   }
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
 
   return (

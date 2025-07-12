@@ -23,10 +23,42 @@ a:hover {
   color: #181c6f;
 }
 
+/* filter bar */
+.filterbar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  max-width: 900px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filterbar input,
+.filterbar select {
+  padding: 0.6em 1em;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.filterbar input:focus,
+.filterbar select:focus {
+  border-color: #1c1e42;
+}
+
+
 /* Fruit List section */
 .fruitlist-container {
   background-color: rgb(25, 174, 60);
   padding: 2rem;
+  border: 1px solid #070505;
+
 }
 
 .fruitlist {
@@ -45,9 +77,22 @@ a:hover {
   border: 1px solid #ccc;
   border-radius: 10px;
   width: 250px;
+  height: 100%;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+
 }
+
+.fruitbuttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+
 
 .fruit-titlecategory {
   margin-top: 0.5rem;
