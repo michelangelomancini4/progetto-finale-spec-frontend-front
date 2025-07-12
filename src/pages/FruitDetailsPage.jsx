@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function FruitDetailsPage() {
+export default function FruitDetailsPage({ favorites, handleFavorite }) {
     const { id } = useParams();
     const [fruit, setFruit] = useState(null);
 
@@ -21,14 +21,19 @@ export default function FruitDetailsPage() {
     if (!fruit) return <p>Caricamento...</p>;
 
     return (
-        <div>
-            <h2>{fruit.title}</h2>
-            <p><strong>Categoria:</strong> {fruit.category}</p>
-            <p><strong>Origine:</strong> {fruit.originCountry}</p>
-            <p><strong>Dolcezza:</strong> {fruit.sweetness}</p>
-            <p><strong>Stagione:</strong> {fruit.season}</p>
-            <p><strong>Calorie per 100g:</strong> {fruit.caloriesPer100g}</p>
-            <p><strong>Vitamine:</strong> {fruit.vitamins}</p>
-        </div>
+        <>
+            <div>
+                <h2>{fruit.title}</h2>
+                <p><strong>Categoria:</strong> {fruit.category}</p>
+                <p><strong>Origine:</strong> {fruit.originCountry}</p>
+                <p><strong>Dolcezza:</strong> {fruit.sweetness}</p>
+                <p><strong>Stagione:</strong> {fruit.season}</p>
+                <p><strong>Calorie per 100g:</strong> {fruit.caloriesPer100g}</p>
+                <p><strong>Vitamine:</strong> {fruit.vitamins}</p>
+            </div>
+            <button onClick={() => handleFavorite(fruit)}>
+                {favorites?.some(f => f.id === fruit.id) ? '⭐' : '✖️'}
+            </button>
+        </>
     );
 }

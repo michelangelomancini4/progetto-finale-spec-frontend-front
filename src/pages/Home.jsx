@@ -1,12 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom"
 
+//  Debounce function 
+function debounce(callback, delay) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            callback(...args);
+        }, delay);
+    };
+}
 
-export default function Home() {
+export default function Home({ favorites, handleFavorite }) {
     const [fruits, setFruits] = useState([]);
 
     // search and filter States
     const [search, setSearch] = useState("");
+    const [debSearch, setDebSearch] = useState("");
     const [category, setCategory] = useState("");
 
     // order States
@@ -61,6 +72,23 @@ export default function Home() {
         }
     }
 
+    // Debounce setting
+    const debouncedSearch = useCallback(
+        debounce((query) => {
+            setSearch(query);
+        }, 1000),
+        []
+    );
+
+    //  Reactive useEffect on debounced search
+    useEffect(() => {
+
+        debouncedSearch(debSearch);
+    }, [debSearch, debouncedSearch]);
+
+
+
+
     return (
         <>
             <div>
@@ -69,8 +97,8 @@ export default function Home() {
                 <input
                     type="text"
                     placeholder="Cerca frutto..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    value={debSearch}
+                    onChange={(e) => setDebSearch(e.target.value)}
                 />
 
                 {/* category select */}
@@ -113,6 +141,11 @@ export default function Home() {
                                 <button onClick={() => handleFruitComparison(fruit)}>
                                     {selectedFruits.some(f => f.id === fruit.id) ? "Rimuovi" : "Confronta"}
                                 </button>
+
+                                <button onClick={() => handleFavorite(fruit)}>
+                                    {favorites?.some(f => f.id === fruit.id) ? '✖️' : '⭐'}
+                                </button>
+
                             </li>
                         ))}
                     </ul>
