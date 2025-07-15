@@ -91,7 +91,7 @@ export default function Home({ favorites, handleFavorite }) {
 
     return (
         <>
-            <h1>Frutta:</h1>
+            <Link to={`/`}><h1>FruitMatch:</h1></Link>
             <div>
 
                 <div className="filterbar">
@@ -157,8 +157,9 @@ export default function Home({ favorites, handleFavorite }) {
                                     </button>
 
                                     <button onClick={() => handleFavorite(fruit)}>
-                                        {favorites?.some(f => f.id === fruit.id) ? '✖️' : '⭐'}
+                                        <i className={`fa-solid ${favorites?.some(f => f.id === fruit.id) ? 'fa-xmark' : 'fa-star'}`}></i>
                                     </button>
+
                                 </div>
 
 

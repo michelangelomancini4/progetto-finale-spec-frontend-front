@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function FruitDetailsPage({ favorites, handleFavorite }) {
@@ -22,8 +22,14 @@ export default function FruitDetailsPage({ favorites, handleFavorite }) {
 
     return (
         <>
-            <div>
-                <div>
+            <header className="fruit-details-header">
+                <Link to="/">
+                    <h1><i className="fa-solid fa-house"></i> FruitMatch</h1>
+                </Link>
+            </header>
+
+            <div className="fruit-details-container">
+                <div className="fruit-info">
                     <h2>{fruit.title}</h2>
                     <p><strong>Categoria:</strong> {fruit.category}</p>
                     <p><strong>Origine:</strong> {fruit.originCountry}</p>
@@ -31,16 +37,21 @@ export default function FruitDetailsPage({ favorites, handleFavorite }) {
                     <p><strong>Stagione:</strong> {fruit.season}</p>
                     <p><strong>Calorie per 100g:</strong> {fruit.caloriesPer100g}</p>
                     <p><strong>Vitamine:</strong> {fruit.vitamins}</p>
-                </div>
-                <button onClick={() => handleFavorite(fruit)}>
-                    {favorites?.some(f => f.id === fruit.id) ? '✖️' : '⭐'}
-                </button>
-            </div>
 
-            <img
-                src={`/fruitsimages/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
-                alt={fruit.title}
-            />
+                    <button onClick={() => handleFavorite(fruit)} className="fav-button">
+                        <i className={`fa-solid ${favorites?.some(f => f.id === fruit.id) ? 'fa-xmark' : 'fa-star'}`}></i>
+                        {favorites?.some(f => f.id === fruit.id) ? ' Rimuovi dai preferiti' : ' Aggiungi ai preferiti'}
+                    </button>
+                </div>
+
+                <div className="fruit-image">
+                    <img
+                        src={`/fruitsimages/${fruit.title.toLowerCase().replace(/\s/g, "")}.jpg`}
+                        alt={fruit.title}
+                    />
+                </div>
+            </div>
         </>
+
     );
 }
