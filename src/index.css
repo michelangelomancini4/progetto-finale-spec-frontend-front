@@ -348,19 +348,3 @@ button:hover {
   padding: 1rem 2rem;
 
 }
-
-
-@media (prefers-color-scheme: light) {
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-    color: #1c1e42;
-  }
-
-  button:hover {
-    background-color: #e0e0e0;
-  }
-}

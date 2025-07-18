@@ -1,5 +1,8 @@
+import { useFavorites } from "../context/FavoritesContext";
 
-function FavoritesBar({ favorites, handleFavorite }) {
+function FavoritesBar() {
+    const { favorites, handleFavorite } = useFavorites();
+
     return (
         <div className="favorites-bar">
             <h3>Preferiti</h3>

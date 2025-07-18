@@ -1,24 +1,16 @@
 import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useFetchFruit } from "../hooks/UseFetchFruit";
+import { useFavorites } from "../context/FavoritesContext";
 
-export default function FruitDetailsPage({ favorites, handleFavorite }) {
+export default function FruitDetailsPage() {
     const { id } = useParams();
-    const [fruit, setFruit] = useState(null);
+    const { fruit, error } = useFetchFruit(id);
+    const { favorites, handleFavorite } = useFavorites();
 
-    useEffect(() => {
-        fetch(`http://localhost:3001/fruits/${id}`)
-            .then((res) => {
-                if (!res.ok) throw new Error("Frutto non trovato");
-                return res.json();
-            })
-            .then((data) => {
-                console.log(" Dato ricevuto:", data);
-                setFruit(data.fruit);
-            })
-            .catch((err) => console.error(" Errore:", err));
-    }, [id]);
-
+    if (error) return <p>Errore nel caricamento del frutto.</p>;
     if (!fruit) return <p>Caricamento...</p>;
+
+    const isFavorite = favorites.some(f => f.id === fruit.id);
 
     return (
         <>
@@ -39,8 +31,8 @@ export default function FruitDetailsPage({ favorites, handleFavorite }) {
                     <p><strong>Vitamine:</strong> {fruit.vitamins}</p>
 
                     <button onClick={() => handleFavorite(fruit)} className="fav-button">
-                        <i className={`fa-solid ${favorites?.some(f => f.id === fruit.id) ? 'fa-xmark' : 'fa-star'}`}></i>
-                        {favorites?.some(f => f.id === fruit.id) ? ' Rimuovi dai preferiti' : ' Aggiungi ai preferiti'}
+                        <i className={`fa-solid ${isFavorite ? 'fa-xmark' : 'fa-star'}`}></i>
+                        {isFavorite ? ' Rimuovi dai preferiti' : ' Aggiungi ai preferiti'}
                     </button>
                 </div>
 
@@ -52,6 +44,5 @@ export default function FruitDetailsPage({ favorites, handleFavorite }) {
                 </div>
             </div>
         </>
-
     );
 }
