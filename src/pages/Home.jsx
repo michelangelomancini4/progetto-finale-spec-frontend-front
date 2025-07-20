@@ -4,6 +4,9 @@ import { useFruitsSearch } from "../hooks/UseFruitSearch";
 import { useFavorites } from "../context/FavoritesContext";
 
 export default function Home() {
+
+    // Custom hook to handle fruit search, filtering and sorting
+
     const {
         fruits,
         debSearch,
@@ -19,6 +22,8 @@ export default function Home() {
     const { favorites, handleFavorite } = useFavorites();
 
     const [selectedFruits, setSelectedFruits] = useState([]);
+
+    // Function to select up to 2 fruits for comparison
 
     function handleFruitComparison(fruit) {
         const alreadySelected = selectedFruits.some(f => f.id === fruit.id);

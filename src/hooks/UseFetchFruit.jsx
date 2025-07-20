@@ -1,8 +1,12 @@
+// Custom hook to fetch a single fruit by id
+
 import { useState, useEffect } from "react";
 
 export function useFetchFruit(id) {
     const [fruit, setFruit] = useState(null);
     const [error, setError] = useState(null);
+
+    // Fetch fruit details when the ID changes
 
     useEffect(() => {
         fetch(`http://localhost:3001/fruits/${id}`)

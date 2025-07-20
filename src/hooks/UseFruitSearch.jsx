@@ -11,12 +11,16 @@ function debounce(callback, delay) {
 }
 
 export function useFruitsSearch() {
+    // States for fruits, search input, filter and sorting
+
     const [fruits, setFruits] = useState([]);
     const [search, setSearch] = useState("");
     const [debSearch, setDebSearch] = useState("");
     const [category, setCategory] = useState("");
     const [sortField, setSortField] = useState("title");
     const [sortOrder, setSortOrder] = useState("asc");
+
+    // Fetch fruits from backend when search or category changes
 
     useEffect(() => {
         const queryParams = [];
@@ -30,6 +34,8 @@ export function useFruitsSearch() {
             .catch((err) => console.error("Errore nel fetch:", err));
     }, [search, category]);
 
+    // Sort fruits by selected field and order
+
     const sortedFruits = useMemo(() => {
         return [...fruits].sort((a, b) => {
             const valueA = a[sortField].toLowerCase();
@@ -40,6 +46,8 @@ export function useFruitsSearch() {
         });
     }, [fruits, sortField, sortOrder]);
 
+    // Debounced search to reduce API calls 
+
     const debouncedSearch = useCallback(
         debounce((query) => {
             setSearch(query);
@@ -47,9 +55,13 @@ export function useFruitsSearch() {
         []
     );
 
+    // Update  search when debounced input changes
+
     useEffect(() => {
         debouncedSearch(debSearch);
     }, [debSearch, debouncedSearch]);
+
+    // Return all states to use in Home 
 
     return {
         fruits: sortedFruits,
